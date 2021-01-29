@@ -54,6 +54,7 @@ class DoublyLinkedList {
         this.removeTail();
         break;
       case this.head:
+        // this is a good candidate for a helper method!
         this.head = node.next;
 
         if (this.head) {
