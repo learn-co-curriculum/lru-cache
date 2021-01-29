@@ -91,7 +91,7 @@ As you implement each of these methods, make sure you're correctly updating each
 
 You may assume that only valid inputs will be provided to each method. For example, if you're asked to move a node to the head of the list, it's guaranteed that the argument will contain a node and that the node will be in the list already.
 
-1. `addHead(node)` / `add_head(node)`
+#### 1. `addHead(node)` / `add_head(node)`
 Place the given node at the head of the list. Do not remove the existing head if there is one!
 
 ```
@@ -111,7 +111,7 @@ list.tail
 => node1
 ```
 
-2. `removeTail()` / `remove_tail`
+#### 2. `removeTail()` / `remove_tail`
 Remove the tail from the list and return it.
 
 ```
@@ -130,7 +130,7 @@ list.tail
 => null or nil
 ```
 
-3. `removeNode(node)` / `remove_node(node)`
+#### 3. `removeNode(node)` / `remove_node(node)`
 Remove the given node from the list and return it.
 
 ```
@@ -145,7 +145,7 @@ list.remove_node(node2)
 // list is 3 -> 1
 ```
 
-4. `moveNodeToHead(node)` / `move_node_to_head(node)`
+#### 4. `moveNodeToHead(node)` / `move_node_to_head(node)`
 Move the given node to the head of the list.
 
 ```
@@ -167,7 +167,7 @@ As you work on the cache, remember that you'll also need to determine when and w
 
 You may assume that the methods will only be given valid arguments.
 
-1. `get(key)`
+#### 1. `get(key)`
 Return the item from the cache using the given `key`. If the item is in the cache, move it to the head of the list to denote that it is the most recently accessed item. If the item isn't in the cache, return `-1`.
 
 ```
@@ -178,7 +178,7 @@ lru_cache.get("notato")
 => -1
 ```
 
-2. `put(key, value)`
+#### 2. `put(key, value)`
 Add or update the item in the cache. If the key does not exist in the cache, add the item to the cache. If the key is in the cache, update the item with the value. In any case, move the item to the head of the list to denote that it's the most recently accessed item. If the cache is already full, remove the least recently used item from the cache before adding the new item.
 
 ```
