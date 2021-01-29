@@ -1,4 +1,4 @@
-require "../solutions/lru_cache"
+require "./lru_cache"
 
 describe "LRUCache" do
   it "correctly creates and updates a cache with a limit of 1 item" do
