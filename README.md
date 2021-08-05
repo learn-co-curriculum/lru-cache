@@ -14,30 +14,30 @@ We decide to implement an LRU cache! When a user makes a request for a story, we
 
 ## Trade Offs
 
-The typical design of an LRU cache allows for extremely fast access: checking if an item is in the cache is a constant time O(1) operation. Updating the cache is also extremely fast: O(1). 
+The typical design of an LRU cache allows for extremely fast access: checking if an item is in the cache is a constant time O(1) operation. Updating the cache is also extremely fast: O(1).
 
 However, the trade off is the amount of space required to store the data. An LRU cache often uses two data structures - a doubly linked list and hash map - to store the data in the correct order. This means it takes up more space than using a simpler data structure, such as an Array. Note that it is possible to implement an LRU cache with different data structures.
 
 ## Why Two Data Structures?
 
-The LRU cache requires its data to be ordered. It also requires fast access and updating (insertion and deletion). Let's say we used an Array, since it's ordered. We only have fast access if we know the index of the element we're looking for in the Array, and our program is unlikely to have that information. Similarly, inserting elements at the front of an Array is an O(n) operation, so we can't use an Array for an LRU cache. 
+The LRU cache requires its data to be ordered. It also requires fast access and updating (insertion and deletion). Let's say we used an Array, since it's ordered. We only have fast access if we know the index of the element we're looking for in the Array, and our program is unlikely to have that information. Similarly, inserting elements at the front of an Array is an O(n) operation, so we can't use an Array for an LRU cache.
 
-We could also think about using a hash/object, but hashes are not ordered, so we have another problem here. However, they do provide O(1) access when you know the key for the value you're looking for. It is also extremely fast to add and remove key-value pairs from a Hash. We could also think about using a doubly linked list (a doubly linked lists contains nodes that point to the next node and previous node). Linked lists are ordered and they allow for fast insertion and deletion. However, finding a specific item takes O(n) time, since we must traverse the list. 
+We could also think about using a hash/object, but hashes are not ordered, so we have another problem here. However, they do provide O(1) access when you know the key for the value you're looking for. It is also extremely fast to add and remove key-value pairs from a Hash. We could also think about using a doubly linked list (a doubly linked lists contains nodes that point to the next node and previous node). Linked lists are ordered and they allow for fast insertion and deletion. However, finding a specific item takes O(n) time, since we must traverse the list.
 
 When we combine a hash with a doubly linked list, we get the best of both worlds: constant-time access, insertion, and deletion! ...as long as we design our LRU cache properly that is.
 
 ## How Do We Combine These Data Structures?
 
-![LRU Cache](./lru_cache.svg)
+![LRU Cache](https://curriculum-content.s3.amazonaws.com/data-structures-and-algorithms/lru-cache/lru_cache.svg)
 
 It's easier to think about how these data structures work together if we first set up some rules:
 
-* When we check if an item is in the cache, we always check if it's in the hash 
-* A key in the hash always points to a node in the doubly linked list
-* Items in the doubly linked list are always ordered from most recenlty used (at the head) to least recently used (at the tail)
-* If an item is being added to a cache that's full, the least recently used item is removed from both the hash and list (at the tail)
-    * The list tells us which item was least recently used since it will always be at the tail
-* If an item is being retrieved from the cache, it is moved to the head of the list and the hash remains unchanged
+- When we check if an item is in the cache, we always check if it's in the hash
+- A key in the hash always points to a node in the doubly linked list
+- Items in the doubly linked list are always ordered from most recently used (at the head) to least recently used (at the tail)
+- If an item is being added to a cache that's full, the least recently used item is removed from both the hash and list (at the tail)
+  - The list tells us which item was least recently used since it will always be at the tail
+- If an item is being retrieved from the cache, it is moved to the head of the list and the hash remains unchanged
 
 Let's say we start with an empty cache. We want the recipe associated with an item that has an ID of "cake". First, we check if "cake" is in the cache by asking the hash if it has a key of "cake". The cache is empty, so the data is retrieved from the database. Next, the LRU cache creates a new node, which stores the recipe. The node is added to the doubly linked list as its head and tail since the list contains only one item. Next, a key of "cake" is added to the hash, and its value is set to the node that was just created. At the end of this operation we have a list with a single node in it, and a hash with a key of "cake" pointing to that node.
 
@@ -92,6 +92,7 @@ As you implement each of these methods, make sure you're correctly updating each
 You may assume that only valid inputs will be provided to each method. For example, if you're asked to move a node to the head of the list, it's guaranteed that the argument will contain a node and that the node will be in the list already.
 
 #### 1. `addHead(node)` / `add_head(node)`
+
 Place the given node at the head of the list. Do not remove the existing head if there is one!
 
 ```
@@ -112,6 +113,7 @@ list.tail
 ```
 
 #### 2. `removeTail()` / `remove_tail`
+
 Remove the tail from the list and return it.
 
 ```
@@ -131,6 +133,7 @@ list.tail
 ```
 
 #### 3. `removeNode(node)` / `remove_node(node)`
+
 Remove the given node from the list and return it.
 
 ```
@@ -146,6 +149,7 @@ list.remove_node(node2)
 ```
 
 #### 4. `moveNodeToHead(node)` / `move_node_to_head(node)`
+
 Move the given node to the head of the list.
 
 ```
@@ -168,6 +172,7 @@ As you work on the cache, remember that you'll also need to determine when and w
 You may assume that the methods will only be given valid arguments.
 
 #### 1. `get(key)`
+
 Return the item from the cache using the given `key`. If the item is in the cache, move it to the head of the list to denote that it is the most recently accessed item. If the item isn't in the cache, return `-1`.
 
 ```
@@ -179,6 +184,7 @@ lru_cache.get("notato")
 ```
 
 #### 2. `put(key, value)`
+
 Add or update the item in the cache. If the key does not exist in the cache, add the item to the cache. If the key is in the cache, update the item with the value. In any case, move the item to the head of the list to denote that it's the most recently accessed item. If the cache is already full, remove the least recently used item from the cache before adding the new item.
 
 ```
